@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ profile.user.username }}'s Business Card</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f4f4f4; /* light grey */
+            --container-bg: #ffffff; /* white card background */
+            --primary-text: #222; /* dark text */
+            --secondary-text: #555; /* medium grey text */
+            --accent-color: #00c853; /* green accent */
+            --button-color: #00c853; /* green */
+            --button-hover: #009624; /* darker green */
+            --logout-btn: #f44336;
+            --logout-hover: #d32f2f;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-heavy: rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: var(--container-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 6px 15px var(--shadow-light);
+            width: 450px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow-heavy);
+        }
+        .container h2 {
+            margin-bottom: 10px;
+            color: var(--primary-text);
+            font-weight: 600;
+        }
+        .container p {
+            margin: 8px 0;
+            color: var(--secondary-text);
+            font-size: 16px;
+        }
+        .container .email {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        .container a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        .container a:hover {
+            text-decoration: underline;
+        }
+        .btn-container {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            background: var(--button-color);
+            color: white;
+            padding: 14px 20px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.2s ease;
+            width: 100%;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            background: var(--button-hover);
+        }
+        .logout-btn {
+            background: var(--logout-btn);
+        }
+        .logout-btn:hover {
+            background: var(--logout-hover);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{{ profile.user.username }}'s Business Card</h2>
+        <p class="email">{{ profile.user.email }}</p>
+        <p><strong>Full Name:</strong> {{ profile.full_name }}</p>
+        <p><strong>Job Title:</strong> {{ profile.job_title }}</p>
+        <p><strong>Company:</strong> {{ profile.company }}</p>
+        <p><strong>Phone:</strong> {{ profile.phone }}</p>
+        <p><strong>Website:</strong> 
+            <a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a>
+        </p>
+
+        <div class="btn-container">
+            <a href="{% url 'add_business_card' %}" class="btn">➕ Add Business Card</a>
+            <a href="{% url 'businesscard_list' %}" class="btn">📇 View Business Cards</a>
+            <a href="{% url 'logout' %}" class="btn logout-btn">🚪 Logout</a>
+        </div>
+    </div>
+</body>
+</html>

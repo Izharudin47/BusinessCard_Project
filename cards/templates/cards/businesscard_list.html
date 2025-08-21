@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Business Card List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-start: #000000;
+            --bg-end: #0d0d0d;
+            --container-bg: #ffffff;
+            --primary-text: #000000;
+            --secondary-text: #444444;
+            --button-color: #2ecc71;   /* green */
+            --button-hover: #27ae60;   /* darker green */
+            --shadow-light: rgba(0, 0, 0, 0.2);
+            --shadow-heavy: rgba(0, 0, 0, 0.3);
+            --logout-btn: #e74c3c;     /* red */
+            --logout-hover: #c0392b;
+            --copy-btn: #2ecc71;
+            --copy-hover: #27ae60;
+            --header-bg: #2ecc71;
+            --header-text: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, var(--bg-start), var(--bg-end));
+            margin: 0;
+            padding: 40px;
+            color: var(--primary-text);
+        }
+        .container {
+            background: var(--container-bg);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px var(--shadow-light);
+        }
+        h2 {
+            text-align: center;
+            color: var(--primary-text);
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+        }
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            background: var(--button-color);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .btn:hover {
+            background: var(--button-hover);
+            transform: translateY(-2px);
+        }
+        .delete-btn {
+            background: var(--logout-btn);
+        }
+        .delete-btn:hover {
+            background: var(--logout-hover);
+        }
+        .copy-btn {
+            background: var(--copy-btn);
+            margin-left: 8px;
+        }
+        .copy-btn:hover {
+            background: var(--copy-hover);
+        }
+        .footer-btns {
+            text-align: center;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📇 Business Card List</h2>
+        <table>
+            <tr>
+                <th>Full Name</th>
+                <th>Position</th>
+                <th>Company</th>
+                <th>Phone</th>
+                <th>Unique URL</th>
+                <th>Actions</th>
+            </tr>
+            {% for card in cards %}
+            <tr>
+                <td>{{ card.full_name }}</td>
+                <td>{{ card.position }}</td>
+                <td>{{ card.company }}</td>
+                <td>{{ card.phone }}</td>
+                <td>
+                    {% with url=request.build_absolute_uri|slice:"://" %}
+                        <a href="{% url 'businesscard_profile' card.profile_url %}" target="_blank" id="url-{{ card.id }}">
+                            {{ request.build_absolute_uri|cut:request.path }}{% url 'businesscard_profile' card.profile_url %}
+                        </a>
+                        <button class="btn copy-btn" onclick="copyToClipboard('url-{{ card.id }}')">📋 Copy</button>
+                    {% endwith %}
+                </td>
+                <td>
+                    <a href="{% url 'businesscard_profile' card.profile_url %}" class="btn">👁 View Profile</a>
+                    <form method="post" action="{% url 'delete_business_card' card.id %}" 
+                          style="display:inline;" 
+                          onsubmit="return confirm('⚠️ Are you sure you want to delete this business card?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn delete-btn">🗑 Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="footer-btns">
+            <a href="{% url 'profile' request.user.username %}" class="btn">🏠 Home</a>
+            <a href="{% url 'add_business_card' %}" class="btn">➕ Add Business Card</a>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const link = document.getElementById(elementId).href;
+            navigator.clipboard.writeText(link).then(() => {
+                alert("✅ URL copied to clipboard!");
+            }).catch(err => {
+                alert("❌ Failed to copy URL");
+            });
+        }
+    </script>
+</body>
+</html>

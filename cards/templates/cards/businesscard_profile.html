@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ card.full_name }}</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #000000, #1a1a1a);
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #ffffff;
+    }
+    .profile-card {
+      background: #111;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      border: 2px solid #4CAF50;
+    }
+    .profile-card h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: #4CAF50;
+    }
+    .profile-card p {
+      margin: 10px 0;
+      color: #ddd;
+    }
+    .profile-card a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .profile-card a:hover {
+      text-decoration: underline;
+      color: #66ff99;
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 20px;
+      background: #4CAF50;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .back-btn:hover {
+      background: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-card">
+    <h1>{{ card.full_name }}</h1>
+    <p><strong>Position:</strong> {{ card.position }}</p>
+    <p><strong>Company:</strong> {{ card.company }}</p>
+    <p><strong>Phone:</strong> {{ card.phone }}</p>
+    <p><strong>Email:</strong> <a href="mailto:{{ card.email }}">{{ card.email }}</a></p>
+    <a href="javascript:history.back()" class="back-btn">⬅ Back</a>
+  </div>
+</body>
+</html>

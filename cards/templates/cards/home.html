@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Business Card System</title>
+    <!-- Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-start: #f0f4f0;
+            --bg-end: #e8f5e9;
+            --container-bg: #ffffff;
+            --primary-text: #111;
+            --secondary-text: #333;
+            --button-color: #2ecc71;   /* Green */
+            --button-hover: #27ae60;   /* Darker Green */
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-heavy: rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, var(--bg-start), var(--bg-end));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: var(--container-bg);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px var(--shadow-light);
+            width: 420px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 2px solid var(--button-color);
+        }
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--shadow-heavy);
+        }
+
+        h1 {
+            margin-bottom: 15px;
+            color: var(--primary-text);
+            font-weight: 700;
+        }
+        p {
+            margin-bottom: 30px;
+            color: var(--secondary-text);
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            background: var(--button-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            background: var(--button-hover);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Business Card System</h1>
+        <p>Manage and share your digital business cards easily.</p>
+
+        <div class="btn-container">
+            <a href="{% url 'register' %}" class="btn">📝 Register</a>
+            <a href="{% url 'login' %}" class="btn">🔑 Login</a>
+        </div>
+    </div>
+</body>
+</html>

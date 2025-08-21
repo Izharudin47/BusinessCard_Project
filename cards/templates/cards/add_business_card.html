@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Business Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-start: #f0f4f0;
+      --bg-end: #dfe6df;
+      --container-bg: #ffffff;
+      --primary-text: #222;
+      --button-color: #2e7d32;      /* green */
+      --button-hover: #256628;      /* darker green */
+      --back-color: #333;           /* black-ish for back button */
+      --back-hover: #111;
+      --shadow-light: rgba(0, 0, 0, 0.1);
+      --shadow-heavy: rgba(0, 0, 0, 0.2);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, var(--bg-start), var(--bg-end));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: var(--container-bg);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px var(--shadow-light);
+      max-width: 600px;
+      width: 100%;
+      transition: transform 0.3s ease;
+    }
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px var(--shadow-heavy);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--primary-text);
+      font-weight: 600;
+    }
+
+    form p {
+      margin-bottom: 1rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-top: 0.5rem;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--button-color);
+    }
+
+    button {
+      display: inline-block;
+      padding: 0.8rem 1.4rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      color: white;
+      transition: background 0.3s ease, transform 0.3s ease;
+      margin-top: 10px;
+    }
+
+    button[type="submit"] {
+      background: var(--button-color);
+    }
+    button[type="submit"]:hover {
+      background: var(--button-hover);
+      transform: translateY(-2px);
+    }
+
+    .back-btn {
+      background: var(--back-color);
+      margin-left: 10px;
+    }
+    .back-btn:hover {
+      background: var(--back-hover);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Add Business Card</h1>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">💾 Save</button>
+      <button type="button" class="back-btn" onclick="window.history.back()">⬅ Back</button>
+    </form>
+  </div>
+</body>
+</html>
