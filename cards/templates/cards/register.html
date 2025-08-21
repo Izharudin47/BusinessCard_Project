@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <!-- Importing a modern font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -9,16 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-start: #f0f4f0;
-            --bg-end: #e8f5e9;
-            --container-bg: #ffffff;
-            --primary-text: #111;
-            --button-color: #2ecc71;   /* Green */
-            --button-hover: #27ae60;   /* Darker Green */
-            --shadow-light: rgba(0, 0, 0, 0.1);
-            --shadow-heavy: rgba(0, 0, 0, 0.2);
+            --bg-start: #1a1a1a;
+            --bg-end: #0d0d0d;
+            --container-bg: #1f1f1f;
+            --primary-text: #e0e0e0;
+            --button-color: #34d399; 
+            --button-hover: #10b981;
+            --shadow-light: rgba(0, 0, 0, 0.4);
+            --shadow-heavy: rgba(0, 0, 0, 0.6);
         }
-
         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(to right, var(--bg-start), var(--bg-end));
@@ -28,15 +28,18 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
+            color: var(--primary-text);
         }
         .container {
             background: var(--container-bg);
             padding: 50px;
             border-radius: 20px;
             box-shadow: 0 10px 25px var(--shadow-light);
-            width: 400px;
-            transition: transform 0.3s ease;
+            width: 100%;
+            max-width: 450px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 2px solid var(--button-color);
+            box-sizing: border-box;
         }
         .container:hover {
             transform: translateY(-5px);
@@ -55,19 +58,29 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #333;
+            color: var(--primary-text);
         }
         input[type="text"], input[type="password"], input[type="email"] {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ccc;
+            border: 1px solid #555;
             border-radius: 8px;
             box-sizing: border-box;
+            background-color: #2a2a2a;
+            color: var(--primary-text);
             transition: border-color 0.3s ease;
         }
         input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
             outline: none;
             border-color: var(--button-color);
+            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+        }
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
         }
         button, .back-btn {
             text-decoration: none;
@@ -81,14 +94,13 @@
             width: 100%;
             display: block;
             text-align: center;
-            margin-top: 10px;
         }
         button {
             background: var(--button-color);
         }
         .back-btn {
-            background: #111; /* Black for back button */
-            margin-top: 20px;
+            background: #555;
+            margin-top: 0;
         }
         button:hover, .back-btn:hover {
             transform: translateY(-2px);
@@ -106,9 +118,11 @@
             {% csrf_token %}
             {{ user_form.as_p }}
             {{ profile_form.as_p }}
-            <button type="submit">Register</button>
+            <div class="btn-group">
+                <button type="submit">Register</button>
+                <a href="{% url 'home' %}" class="back-btn">⬅ Back</a>
+            </div>
         </form>
-        <a href="{% url 'home' %}" class="back-btn">⬅ Back</a>
     </div>
 </body>
 </html>

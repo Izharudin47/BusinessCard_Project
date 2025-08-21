@@ -2,114 +2,204 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ profile.user.username }}'s Business Card</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>{{ profile.user.username }}'s Business Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #f4f4f4; /* light grey */
-            --container-bg: #ffffff; /* white card background */
-            --primary-text: #222; /* dark text */
-            --secondary-text: #555; /* medium grey text */
-            --accent-color: #00c853; /* green accent */
-            --button-color: #00c853; /* green */
-            --button-hover: #009624; /* darker green */
-            --logout-btn: #f44336;
-            --logout-hover: #d32f2f;
-            --shadow-light: rgba(0, 0, 0, 0.1);
-            --shadow-heavy: rgba(0, 0, 0, 0.2);
+            /* --- Color Theme (Updated for Dark Theme) --- */
+            --bg-color: #0d0d0d;
+            --container-bg: #1f1f1f;
+            --primary-text: #e0e0e0;
+            --secondary-text: #b0b0b0;
+            --accent-color: #34d399; /* A vibrant green accent */
+            --button-color: #34d399;
+            --button-hover: #10b981;
+            --logout-btn: #ef4444; /* A bright red for logout */
+            --logout-hover: #dc2626;
+            --shadow-light: rgba(0, 0, 0, 0.4);
+            --shadow-heavy: rgba(0, 0, 0, 0.6);
+            --border-color: #333;
+        }
+
+        /* --- IMPROVEMENT: Basic Reset & Box Sizing --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--bg-color);
+            background: linear-gradient(to right, #1a1a1a, #0d0d0d);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 20px;
         }
+
         .container {
             background: var(--container-bg);
             padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 6px 15px var(--shadow-light);
-            width: 450px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-light);
+            width: 100%;
+            max-width: 420px;
             text-align: center;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px var(--shadow-heavy);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px var(--shadow-heavy);
         }
+
+        /* --- IMPROVEMENT: Profile Picture Styling --- */
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px auto;
+            border: 4px solid var(--container-bg);
+            box-shadow: 0 4px 10px var(--shadow-light);
+        }
+
         .container h2 {
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             color: var(--primary-text);
             font-weight: 600;
+            font-size: 1.75rem;
         }
-        .container p {
-            margin: 8px 0;
+
+        .container .job-title {
             color: var(--secondary-text);
-            font-size: 16px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
         }
-        .container .email {
-            font-weight: 600;
-            color: var(--accent-color);
+
+        /* --- IMPROVEMENT: Structured Info List --- */
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
         }
-        .container a {
+
+        .info-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            font-size: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--secondary-text);
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        .info-list li strong {
+            color: var(--primary-text);
+            font-weight: 500;
+        }
+        
+        .info-list a {
             color: var(--accent-color);
             text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
         }
-        .container a:hover {
-            text-decoration: underline;
+
+        .info-list a:hover {
+            color: var(--button-hover);
         }
+
+        /* --- IMPROVEMENT: Visual Separator --- */
+        hr {
+            border: none;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 30px 0;
+        }
+
         .btn-container {
-            margin-top: 25px;
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
+
         .btn {
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             text-decoration: none;
             background: var(--button-color);
             color: white;
             padding: 14px 20px;
-            border-radius: 10px;
+            border-radius: 12px;
             border: none;
             cursor: pointer;
             font-weight: 600;
+            font-size: 1rem;
             transition: background 0.3s ease, transform 0.2s ease;
-            width: 100%;
         }
+
         .btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             background: var(--button-hover);
         }
+
         .logout-btn {
             background: var(--logout-btn);
         }
+
         .logout-btn:hover {
             background: var(--logout-hover);
+        }
+        
+        /* --- IMPROVEMENT: Media Query for Mobile --- */
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px;
+            }
+            .profile-pic {
+                width: 100px;
+                height: 100px;
+            }
+            .container h2 {
+                font-size: 1.5rem;
+            }
+            .container .job-title {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>{{ profile.user.username }}'s Business Card</h2>
-        <p class="email">{{ profile.user.email }}</p>
-        <p><strong>Full Name:</strong> {{ profile.full_name }}</p>
-        <p><strong>Job Title:</strong> {{ profile.job_title }}</p>
-        <p><strong>Company:</strong> {{ profile.company }}</p>
-        <p><strong>Phone:</strong> {{ profile.phone }}</p>
-        <p><strong>Website:</strong> 
-            <a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a>
-        </p>
+        
+
+        <h2>{{ profile.user.username }}</h2>
+        <p class="job-title">{{ profile.job_title }}</p>
+
+        <ul class="info-list">
+            <li>Email: <strong>{{ profile.user.email }}</strong></li>
+            
+            <li>Company: <strong>{{ profile.company }}</strong></li>
+            <li>Phone: <strong>{{ profile.phone }}</strong></li>
+            
+                <a href="{{ profile.website }}" target="_blank" rel="noopener noreferrer">{{ profile.website }}</a>
+            </li>
+        </ul>
+
+        <hr>
 
         <div class="btn-container">
-            <a href="{% url 'add_business_card' %}" class="btn">➕ Add Business Card</a>
-            <a href="{% url 'businesscard_list' %}" class="btn">📇 View Business Cards</a>
-            <a href="{% url 'logout' %}" class="btn logout-btn">🚪 Logout</a>
+            <a href="{% url 'add_business_card' %}" class="btn"><span>➕</span> Add Business Card</a>
+            <a href="{% url 'businesscard_list' %}" class="btn"><span>📇</span> View Business Cards</a>
+            <a href="{% url 'logout' %}" class="btn logout-btn"><span>🚪</span> Logout</a>
         </div>
     </div>
 </body>

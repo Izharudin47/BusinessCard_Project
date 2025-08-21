@@ -1,72 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>{{ card.full_name }}</title>
-  <style>
-    body {
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(to right, #000000, #1a1a1a);
-      margin: 0;
-      padding: 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      color: #ffffff;
-    }
-    .profile-card {
-      background: #111;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-      max-width: 500px;
-      width: 100%;
-      text-align: center;
-      border: 2px solid #4CAF50;
-    }
-    .profile-card h1 {
-      margin: 0;
-      font-size: 1.8rem;
-      color: #4CAF50;
-    }
-    .profile-card p {
-      margin: 10px 0;
-      color: #ddd;
-    }
-    .profile-card a {
-      color: #4CAF50;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .profile-card a:hover {
-      text-decoration: underline;
-      color: #66ff99;
-    }
-    .back-btn {
-      display: inline-block;
-      margin-top: 20px;
-      background: #4CAF50;
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .back-btn:hover {
-      background: #2e7d32;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Card</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for a polished look */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Using a linear gradient for a smooth dark background */
+            background: linear-gradient(to bottom right, #1a1a1a, #0d0d0d);
+        }
+    </style>
 </head>
-<body>
-  <div class="profile-card">
-    <h1>{{ card.full_name }}</h1>
-    <p><strong>Position:</strong> {{ card.position }}</p>
-    <p><strong>Company:</strong> {{ card.company }}</p>
-    <p><strong>Phone:</strong> {{ card.phone }}</p>
-    <p><strong>Email:</strong> <a href="mailto:{{ card.email }}">{{ card.email }}</a></p>
-    <a href="javascript:history.back()" class="back-btn">⬅ Back</a>
-  </div>
+<body class="min-h-screen flex justify-center items-center p-6 text-white">
+    <!-- Main profile card container -->
+    <div class="profile-card bg-zinc-900 p-8 rounded-2xl shadow-2xl max-w-lg w-full text-center
+                border-2 border-emerald-500 transition-all duration-300 ease-in-out
+                hover:shadow-emerald-500/20 hover:scale-105">
+
+        <!-- Title/Name section -->
+        <h1 class="text-3xl font-bold mb-2 text-emerald-500 tracking-wide">
+            {{ card.full_name }}
+        </h1>
+
+        <!-- Details section, using a grid for cleaner layout on larger screens -->
+        <div class="mt-8 space-y-4">
+            <p class="text-gray-300">
+                <span class="font-bold text-gray-100">Position:</span> {{ card.position }}
+            </p>
+            <p class="text-gray-300">
+                <span class="font-bold text-gray-100">Company:</span> {{ card.company }}
+            </p>
+            <p class="text-gray-300">
+                <span class="font-bold text-gray-100">Phone:</span> {{ card.phone }}
+            </p>
+            <p class="text-gray-300">
+                <span class="font-bold text-gray-100">Email:</span>
+                <a href="mailto:{{ card.email }}" class="text-emerald-400 hover:text-emerald-300 transition-colors duration-300">
+                    {{ card.email }}
+                </a>
+            </p>
+        </div>
+        
+        <!-- Back button -->
+        <a href="javascript:history.back()"
+           class="inline-block mt-8 bg-zinc-800 text-white py-3 px-6 rounded-lg font-semibold
+                  transition-all duration-300 ease-in-out hover:bg-zinc-700
+                  hover:scale-105 hover:shadow-lg">
+            ⬅ Back
+        </a>
+    </div>
 </body>
 </html>
