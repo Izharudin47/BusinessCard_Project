@@ -13,6 +13,7 @@ urlpatterns = [
     path("add-business-card/", views.add_business_card, name="add_business_card"),
     path("cards/", views.businesscard_list, name="businesscard_list"),
     path("cards/<str:profile_url>/", views.businesscard_profile, name="businesscard_profile"),
+    path("edit-business-card/<int:card_id>/", views.edit_business_card, name="edit_business_card"),
     path("delete-business-card/<int:card_id>/", views.delete_business_card, name="delete_business_card"),
 
 ]

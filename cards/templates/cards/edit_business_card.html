@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Business Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-start: #1a1a1a;
+      --bg-end: #0d0d0d;
+      --container-bg: #1f1f1f;
+      --primary-text: #ddd;
+      --input-border: #444;
+      --button-color: #2e7d32;
+      --button-hover: #256628;
+      --back-color: #555;
+      --back-hover: #333;
+      --shadow-light: rgba(0, 0, 0, 0.3);
+      --shadow-heavy: rgba(0, 0, 0, 0.5);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, var(--bg-start), var(--bg-end));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      color: var(--primary-text);
+    }
+
+    .container {
+      background: var(--container-bg);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px var(--shadow-light);
+      max-width: 600px;
+      width: 100%;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px var(--shadow-heavy);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--primary-text);
+      font-weight: 600;
+    }
+
+    form p {
+      margin-bottom: 1rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid var(--input-border);
+      background-color: #2a2a2a;
+      color: var(--primary-text);
+      margin-top: 0.5rem;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--button-color);
+      box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+    }
+
+    /* Custom file input styling */
+    input[type="file"] {
+      padding: 8px;
+      background-color: #2a2a2a;
+      border: 2px dashed var(--input-border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    input[type="file"]:hover {
+      border-color: var(--button-color);
+      background-color: #333;
+    }
+    input[type="file"]:focus {
+      border-color: var(--button-color);
+      box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.2);
+    }
+
+    /* File input label styling */
+    label[for*="profile_picture"] {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--primary-text);
+    }
+
+    button {
+      display: inline-block;
+      padding: 0.8rem 1.4rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      color: white;
+      transition: background 0.3s ease, transform 0.3s ease;
+      margin-top: 10px;
+    }
+
+    button[type="submit"] {
+      background: var(--button-color);
+    }
+    button[type="submit"]:hover {
+      background: var(--button-hover);
+      transform: translateY(-2px);
+    }
+
+    .back-btn {
+      background: var(--back-color);
+      margin-left: 10px;
+    }
+    .back-btn:hover {
+      background: var(--back-hover);
+      transform: translateY(-2px);
+    }
+
+    .current-image {
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .current-image img {
+      max-width: 150px;
+      max-height: 150px;
+      border-radius: 10px;
+      border: 2px solid var(--button-color);
+    }
+
+    .current-image p {
+      margin-top: 0.5rem;
+      color: var(--primary-text);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Edit Business Card</h1>
+    
+    <!-- Show current profile picture if exists -->
+    {% if card.profile_picture %}
+    <div class="current-image">
+      <p><strong>Current Profile Picture:</strong></p>
+      <img src="{{ card.profile_picture.url }}" alt="Current profile picture">
+      <p>Upload a new image to replace the current one</p>
+    </div>
+    {% endif %}
+    
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Update</button>
+      <button type="button" class="back-btn" onclick="window.history.back()">Back</button>
+    </form>
+  </div>
+</body>
+</html>
