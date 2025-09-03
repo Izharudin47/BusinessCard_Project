@@ -25,6 +25,15 @@
                 border-2 border-emerald-500 transition-all duration-300 ease-in-out
                 hover:shadow-emerald-500/20 hover:scale-105">
 
+        <!-- Profile Picture Section -->
+        {% if card.profile_picture %}
+        <div class="mb-6">
+            <img src="{{ card.profile_picture.url }}" 
+                 alt="{{ card.full_name }}'s profile picture"
+                 class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-emerald-500 shadow-lg">
+        </div>
+        {% endif %}
+
         <!-- Title/Name section -->
         <h1 class="text-3xl font-bold mb-2 text-emerald-500 tracking-wide">
             {{ card.full_name }}
@@ -49,13 +58,7 @@
             </p>
         </div>
         
-        <!-- Back button -->
-        <a href="javascript:history.back()"
-           class="inline-block mt-8 bg-zinc-800 text-white py-3 px-6 rounded-lg font-semibold
-                  transition-all duration-300 ease-in-out hover:bg-zinc-700
-                  hover:scale-105 hover:shadow-lg">
-            ⬅ Back
-        </a>
+    
     </div>
 </body>
 </html>

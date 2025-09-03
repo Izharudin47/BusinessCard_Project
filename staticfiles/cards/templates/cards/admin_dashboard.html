@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f7f7f7; }
+    h1 { color: #333; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #fff; }
+    th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+    th { background: #444; color: #fff; }
+    tr:nth-child(even) { background: #f2f2f2; }
+    a { color: #007bff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>Admin Dashboard - Registered Users</h1>
+  <table>
+    <tr>
+      <th>Username</th>
+      <th>Full Name</th>
+      <th>Email</th>
+      <th>Profile URL</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.user.username }}</td>
+      <td>{{ user.full_name }}</td>
+      <td>{{ user.user.email }}</td>
+      <td><a href="{% url 'profile' profile_url=user.profile_url %}" target="_blank">{{ user.profile_url }}</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

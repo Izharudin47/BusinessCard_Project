@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Card</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for a polished look */
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Using a linear gradient for a smooth dark background */
+            background: linear-gradient(to bottom right, #1a1a1a, #0d0d0d);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex justify-center items-center p-6 text-white">
+    <!-- Main profile card container -->
+    <div class="profile-card bg-zinc-900 p-8 rounded-2xl shadow-2xl max-w-lg w-full text-center
+                border-2 border-emerald-500 transition-all duration-300 ease-in-out
+                hover:shadow-emerald-500/20 hover:scale-105">
+
+        <!-- Profile Picture Section -->
+        {% if card.profile_picture %}
+        <div class="mb-6">
+            <img src="{{ card.profile_picture.url }}" 
+                 alt="{{ card.full_name }}'s profile picture"
+                 class="w-32 h-32 rounded-full mx-auto object-cover border-4 border-emerald-500 shadow-lg">
+        </div>
+        {% endif %}
+
+        <!-- Title/Name section -->
+        <h1 class="text-3xl font-bold mb-2 text-emerald-500 tracking-wide">
+            {{ card.full_name }}
+        </h1>
+
+        <!-- Details section, using a grid for cleaner layout on larger screens -->
+        <div class="mt-8 space-y-4">
+            <p class="text-gray-300">
+                <span class="font-bold text-gray-100">Position:</span> {{ card.position }}
+            </p>
+            <p class="text-gray-300">
+                <span class="font-bold text-gray-100">Company:</span> {{ card.company }}
+            </p>
+            <p class="text-gray-300">
+                <span class="font-bold text-gray-100">Phone:</span> {{ card.phone }}
+            </p>
+            <p class="text-gray-300">
+                <span class="font-bold text-gray-100">Email:</span>
+                <a href="mailto:{{ card.email }}" class="text-emerald-400 hover:text-emerald-300 transition-colors duration-300">
+                    {{ card.email }}
+                </a>
+            </p>
+        </div>
+        
+        <!-- Back button -->
+        <a href="javascript:history.back()"
+           class="inline-block mt-8 bg-zinc-800 text-white py-3 px-6 rounded-lg font-semibold
+                  transition-all duration-300 ease-in-out hover:bg-zinc-700
+                  hover:scale-105 hover:shadow-lg">
+            Back
+        </a>
+    </div>
+</body>
+</html>

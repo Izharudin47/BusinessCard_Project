@@ -102,7 +102,7 @@ def admin_dashboard(request):
 @login_required
 def add_business_card(request):
     if request.method == "POST":
-        form = BusinessCardForm(request.POST)
+        form = BusinessCardForm(request.POST, request.FILES)
         if form.is_valid():
             card = form.save(commit=False)
             card.user = request.user  # track which admin added it
@@ -128,13 +128,35 @@ def add_business_card(request):
 @login_required
 def businesscard_list(request):
     cards = BusinessCard.objects.all()
-    return render(request, "cards/businesscard_list.html", {"cards": cards})
+    search_query = request.GET.get('search', '')
+    
+    if search_query:
+        cards = cards.filter(
+            full_name__icontains=search_query
+        )
+    
+    return render(request, "cards/businesscard_list.html", {
+        "cards": cards,
+        "search_query": search_query
+    })
 
 
 # Public profile view (unique URL for each business card)
 def businesscard_profile(request, profile_url):
     card = get_object_or_404(BusinessCard, profile_url=profile_url)
     return render(request, "cards/businesscard_profile.html", {"card": card})
+
+
+def edit_business_card(request, card_id):
+    card = get_object_or_404(BusinessCard, id=card_id, user=request.user)
+    if request.method == "POST":
+        form = BusinessCardForm(request.POST, request.FILES, instance=card)
+        if form.is_valid():
+            form.save()
+            return redirect("businesscard_list")
+    else:
+        form = BusinessCardForm(instance=card)
+    return render(request, "cards/edit_business_card.html", {"form": form, "card": card})
 
 
 def delete_business_card(request, card_id):
